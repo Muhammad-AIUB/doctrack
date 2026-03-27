@@ -30,25 +30,32 @@ export function SessionControls({ sessionId, onAction }: SessionControlsProps) {
   };
 
   return (
-    <div className="space-y-3">
-      <div className="flex gap-3">
+    <div className="dt-card p-5">
+      <h3 className="text-sm font-semibold text-[var(--dt-fg)]">Desk actions</h3>
+      <p className="mt-0.5 text-xs text-[var(--dt-fg-muted)]">Advance the queue for this session.</p>
+      <div className="mt-4 flex flex-col gap-3 sm:flex-row">
         <button
+          type="button"
           onClick={() => handleAction('next')}
           disabled={loading !== null}
-          className="flex-1 rounded-lg bg-green-600 px-6 py-3 text-lg font-bold text-white shadow-md transition-colors hover:bg-green-700 disabled:opacity-50"
+          className="dt-btn-success flex-1 py-3.5 text-base font-bold shadow-md shadow-teal-600/25 dark:shadow-teal-400/20"
         >
-          {loading === 'next' ? 'Processing...' : 'Next Patient'}
+          {loading === 'next' ? 'Processing…' : 'Next patient'}
         </button>
         <button
+          type="button"
           onClick={() => handleAction('skip')}
           disabled={loading !== null}
-          className="rounded-lg border-2 border-amber-500 bg-amber-50 px-6 py-3 font-semibold text-amber-700 transition-colors hover:bg-amber-100 disabled:opacity-50"
+          className="rounded-xl border-2 border-[var(--dt-warning)]/50 bg-[var(--dt-warning-soft)] px-5 py-3.5 text-sm font-bold text-[var(--dt-warning)] transition-colors hover:border-[var(--dt-warning)] disabled:opacity-50"
         >
-          {loading === 'skip' ? '...' : 'Skip'}
+          {loading === 'skip' ? '…' : 'Skip'}
         </button>
       </div>
       {error && (
-        <p className="rounded bg-red-50 p-2 text-center text-sm text-red-600">
+        <p
+          className="mt-3 rounded-lg bg-[var(--dt-danger-soft)] px-3 py-2 text-center text-sm text-[var(--dt-danger)]"
+          role="alert"
+        >
           {error}
         </p>
       )}

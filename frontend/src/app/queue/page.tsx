@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function QueueEntryPage() {
   const [sessionId, setSessionId] = useState('');
@@ -15,30 +16,44 @@ export default function QueueEntryPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center px-4">
-      <div className="w-full max-w-sm text-center">
-        <h1 className="mb-2 text-2xl font-bold text-gray-900">Join Queue</h1>
-        <p className="mb-8 text-gray-600">
-          Enter the session ID to view the live queue
+    <div className="mx-auto flex min-h-[calc(100dvh-3.5rem)] max-w-lg flex-col justify-center px-4 py-12">
+      <div className="text-center">
+        <p className="text-sm font-semibold uppercase tracking-widest text-[var(--dt-primary)]">
+          Patient view
         </p>
+        <h1 className="mt-2 text-3xl font-bold tracking-tight text-[var(--dt-fg)]">Join a queue</h1>
+        <p className="mt-2 text-[var(--dt-fg-muted)]">
+          Enter the session ID from your doctor or reception.
+        </p>
+      </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="text"
-            value={sessionId}
-            onChange={(e) => setSessionId(e.target.value)}
-            placeholder="Session ID"
-            className="w-full rounded-md border border-gray-300 px-4 py-3 text-center focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-            required
-          />
-          <button
-            type="submit"
-            className="w-full rounded-md bg-green-600 py-3 font-semibold text-white transition-colors hover:bg-green-700"
-          >
-            View Queue
+      <div className="mt-10 dt-card p-6 sm:p-8">
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div>
+            <label htmlFor="session-id" className="dt-label">
+              Session ID
+            </label>
+            <input
+              id="session-id"
+              type="text"
+              value={sessionId}
+              onChange={(e) => setSessionId(e.target.value)}
+              placeholder="Paste or type the full ID"
+              className="dt-input text-center font-mono text-sm sm:text-base"
+              required
+            />
+          </div>
+          <button type="submit" className="dt-btn-success w-full py-3 text-base">
+            View live queue
           </button>
         </form>
       </div>
+
+      <p className="mt-8 text-center text-sm text-[var(--dt-fg-muted)]">
+        <Link href="/" className="font-medium text-[var(--dt-primary)] hover:underline">
+          Back to home
+        </Link>
+      </p>
     </div>
   );
 }

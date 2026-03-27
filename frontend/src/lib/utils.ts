@@ -21,10 +21,15 @@ export function priorityLabel(priority: QueuePriority): string {
 
 export function priorityColor(priority: QueuePriority): string {
   switch (priority) {
-    case QueuePriority.EMERGENCY: return 'bg-red-100 text-red-800 border-red-300';
-    case QueuePriority.VIP: return 'bg-amber-100 text-amber-800 border-amber-300';
-    case QueuePriority.FOLLOW_UP: return 'bg-blue-100 text-blue-800 border-blue-300';
-    case QueuePriority.REGULAR: return 'bg-gray-100 text-gray-800 border-gray-300';
-    default: return 'bg-gray-100 text-gray-800 border-gray-300';
+    case QueuePriority.EMERGENCY:
+      return 'bg-red-100 text-red-900 border-red-200 dark:bg-red-950/50 dark:text-red-200 dark:border-red-800/60';
+    case QueuePriority.VIP:
+      return 'bg-amber-100 text-amber-900 border-amber-200 dark:bg-amber-950/40 dark:text-amber-200 dark:border-amber-800/50';
+    case QueuePriority.FOLLOW_UP:
+      return 'bg-sky-100 text-sky-900 border-sky-200 dark:bg-sky-950/40 dark:text-sky-200 dark:border-sky-800/50';
+    case QueuePriority.REGULAR:
+      return 'bg-slate-100 text-slate-800 border-slate-200 dark:bg-slate-800/80 dark:text-slate-200 dark:border-slate-600';
+    default:
+      return 'bg-slate-100 text-slate-800 border-slate-200 dark:bg-slate-800/80 dark:text-slate-200 dark:border-slate-600';
   }
 }

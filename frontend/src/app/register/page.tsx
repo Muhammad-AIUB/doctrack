@@ -30,82 +30,109 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center px-4">
-      <div className="w-full max-w-sm">
-        <h1 className="mb-8 text-center text-2xl font-bold text-gray-900">
-          Create Account
-        </h1>
-
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Full Name</label>
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-              required
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Phone</label>
-            <input
-              type="text"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-              placeholder="+880..."
-              required
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Role</label>
-            <select
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-              className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-            >
-              <option value="PATIENT">Patient</option>
-              <option value="DOCTOR">Doctor</option>
-              <option value="ASSISTANT">Assistant</option>
-            </select>
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-              minLength={6}
-              required
-            />
-          </div>
-
-          {error && (
-            <p className="rounded bg-red-50 p-2 text-center text-sm text-red-600">
-              {error}
-            </p>
-          )}
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full rounded-md bg-indigo-600 py-2.5 font-semibold text-white transition-colors hover:bg-indigo-700 disabled:opacity-50"
-          >
-            {loading ? 'Creating account...' : 'Register'}
-          </button>
-        </form>
-
-        <p className="mt-6 text-center text-sm text-gray-500">
-          Already have an account?{' '}
-          <Link href="/login" className="text-indigo-600 hover:underline">
-            Sign in
-          </Link>
+    <div className="mx-auto flex min-h-[calc(100dvh-3.5rem)] max-w-6xl flex-col px-4 py-10 lg:flex-row lg:items-stretch lg:gap-12 lg:py-16">
+      <div className="mb-10 flex flex-1 flex-col justify-center lg:mb-0 lg:pr-8">
+        <p className="text-sm font-semibold uppercase tracking-widest text-[var(--dt-primary)]">
+          Get started
         </p>
+        <h1 className="mt-2 text-3xl font-bold tracking-tight text-[var(--dt-fg)] sm:text-4xl">
+          Create your account
+        </h1>
+        <p className="mt-3 max-w-md text-[var(--dt-fg-muted)]">
+          Patients can track the queue; doctors and assistants manage sessions from the dashboard.
+        </p>
+      </div>
+
+      <div className="flex flex-1 items-center justify-center lg:justify-end">
+        <div className="w-full max-w-md">
+          <div className="dt-card p-6 shadow-lg shadow-slate-900/5 sm:p-8">
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div>
+                <label htmlFor="reg-name" className="dt-label">
+                  Full name
+                </label>
+                <input
+                  id="reg-name"
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="dt-input"
+                  autoComplete="name"
+                  required
+                />
+              </div>
+
+              <div>
+                <label htmlFor="reg-phone" className="dt-label">
+                  Phone
+                </label>
+                <input
+                  id="reg-phone"
+                  type="text"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="dt-input"
+                  placeholder="+880…"
+                  autoComplete="tel"
+                  required
+                />
+              </div>
+
+              <div>
+                <label htmlFor="reg-role" className="dt-label">
+                  Role
+                </label>
+                <select
+                  id="reg-role"
+                  value={role}
+                  onChange={(e) => setRole(e.target.value)}
+                  className="dt-input cursor-pointer"
+                >
+                  <option value="PATIENT">Patient</option>
+                  <option value="DOCTOR">Doctor</option>
+                  <option value="ASSISTANT">Assistant</option>
+                </select>
+              </div>
+
+              <div>
+                <label htmlFor="reg-password" className="dt-label">
+                  Password
+                </label>
+                <input
+                  id="reg-password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="dt-input"
+                  minLength={6}
+                  autoComplete="new-password"
+                  required
+                />
+                <p className="mt-1 text-xs text-[var(--dt-fg-muted)]">At least 6 characters</p>
+              </div>
+
+              {error && (
+                <div
+                  className="rounded-xl border border-red-200 bg-[var(--dt-danger-soft)] px-3 py-2.5 text-center text-sm text-[var(--dt-danger)]"
+                  role="alert"
+                >
+                  {error}
+                </div>
+              )}
+
+              <button type="submit" disabled={loading} className="dt-btn-primary w-full py-3 text-base">
+                {loading ? 'Creating account…' : 'Register'}
+              </button>
+            </form>
+
+            <p className="mt-6 text-center text-sm text-[var(--dt-fg-muted)]">
+              Already have an account?{' '}
+              <Link href="/login" className="font-semibold text-[var(--dt-primary)] hover:underline">
+                Sign in
+              </Link>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

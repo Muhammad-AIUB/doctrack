@@ -28,57 +28,90 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center px-4">
-      <div className="w-full max-w-sm">
-        <h1 className="mb-8 text-center text-2xl font-bold text-gray-900">
-          Sign In to doctrack
-        </h1>
-
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Phone</label>
-            <input
-              type="text"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-              placeholder="+880..."
-              required
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-              required
-            />
-          </div>
-
-          {error && (
-            <p className="rounded bg-red-50 p-2 text-center text-sm text-red-600">
-              {error}
-            </p>
-          )}
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full rounded-md bg-indigo-600 py-2.5 font-semibold text-white transition-colors hover:bg-indigo-700 disabled:opacity-50"
-          >
-            {loading ? 'Signing in...' : 'Sign In'}
-          </button>
-        </form>
-
-        <p className="mt-6 text-center text-sm text-gray-500">
-          No account?{' '}
-          <Link href="/register" className="text-indigo-600 hover:underline">
-            Register
-          </Link>
+    <div className="mx-auto flex min-h-[calc(100dvh-3.5rem)] max-w-6xl flex-col px-4 py-10 lg:flex-row lg:items-stretch lg:gap-12 lg:py-16">
+      <div className="mb-10 flex flex-1 flex-col justify-center lg:mb-0 lg:pr-8">
+        <p className="text-sm font-semibold uppercase tracking-widest text-[var(--dt-primary)]">
+          Welcome back
         </p>
+        <h1 className="mt-2 text-3xl font-bold tracking-tight text-[var(--dt-fg)] sm:text-4xl">
+          Sign in to DocTrack
+        </h1>
+        <p className="mt-3 max-w-md text-[var(--dt-fg-muted)]">
+          Access your dashboard to run sessions, or join the queue view with your phone account.
+        </p>
+        <ul className="mt-8 hidden space-y-3 text-sm text-[var(--dt-fg-muted)] sm:block">
+          <li className="flex items-center gap-2">
+            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--dt-success-soft)] text-xs text-[var(--dt-success)]">
+              ✓
+            </span>
+            Live updates for everyone in the queue
+          </li>
+          <li className="flex items-center gap-2">
+            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--dt-success-soft)] text-xs text-[var(--dt-success)]">
+              ✓
+            </span>
+            Clear ETAs based on average visit time
+          </li>
+        </ul>
+      </div>
+
+      <div className="flex flex-1 items-center justify-center lg:justify-end">
+        <div className="w-full max-w-md">
+          <div className="dt-card p-6 shadow-lg shadow-slate-900/5 sm:p-8">
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div>
+                <label htmlFor="login-phone" className="dt-label">
+                  Phone
+                </label>
+                <input
+                  id="login-phone"
+                  type="text"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="dt-input"
+                  placeholder="+880…"
+                  autoComplete="tel"
+                  required
+                />
+              </div>
+
+              <div>
+                <label htmlFor="login-password" className="dt-label">
+                  Password
+                </label>
+                <input
+                  id="login-password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="dt-input"
+                  autoComplete="current-password"
+                  required
+                />
+              </div>
+
+              {error && (
+                <div
+                  className="rounded-xl border border-red-200 bg-[var(--dt-danger-soft)] px-3 py-2.5 text-center text-sm text-[var(--dt-danger)]"
+                  role="alert"
+                >
+                  {error}
+                </div>
+              )}
+
+              <button type="submit" disabled={loading} className="dt-btn-primary w-full py-3 text-base">
+                {loading ? 'Signing in…' : 'Sign in'}
+              </button>
+            </form>
+
+            <p className="mt-6 text-center text-sm text-[var(--dt-fg-muted)]">
+              No account?{' '}
+              <Link href="/register" className="font-semibold text-[var(--dt-primary)] hover:underline">
+                Register
+              </Link>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

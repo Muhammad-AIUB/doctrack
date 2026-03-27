@@ -2,83 +2,95 @@
 
 import { useAuth } from '@/lib/auth-context';
 import Link from 'next/link';
+import { Spinner } from '@/components/ui/Spinner';
 
 export default function HomePage() {
   const { user, loading, logout } = useAuth();
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-indigo-600 border-t-transparent" />
+      <div className="flex min-h-[50vh] items-center justify-center">
+        <Spinner />
       </div>
     );
   }
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-16">
+    <div className="mx-auto max-w-3xl px-4 py-12 sm:py-16">
       <div className="text-center">
-        <h1 className="text-4xl font-bold tracking-tight text-gray-900">
-          doctrack
+        <p className="text-sm font-semibold uppercase tracking-widest text-[var(--dt-primary)]">
+          Chamber queue, simplified
+        </p>
+        <h1 className="mt-3 text-4xl font-bold tracking-tight text-[var(--dt-fg)] sm:text-5xl">
+          Wait less. Know your turn.
         </h1>
-        <p className="mt-3 text-lg text-gray-600">
-          Smart Medical Queue & Dynamic ETA Engine
+        <p className="mx-auto mt-4 max-w-xl text-lg text-[var(--dt-fg-muted)]">
+          Real-time medical queue tracking and dynamic ETA so patients and staff stay in sync.
         </p>
       </div>
 
       {user ? (
-        <div className="mt-10 space-y-6">
-          <div className="rounded-lg border bg-white p-6 text-center">
-            <p className="text-gray-600">
-              Welcome back, <span className="font-semibold">{user.name}</span>
+        <div className="mt-12 space-y-8">
+          <div className="dt-card p-6 text-center sm:p-8">
+            <p className="text-[var(--dt-fg-muted)]">
+              Welcome back,
             </p>
-            <p className="text-sm text-gray-500">
-              Role: {user.role}
-            </p>
+            <p className="mt-1 text-xl font-semibold text-[var(--dt-fg)]">{user.name}</p>
+            <span className="mt-3 inline-flex rounded-full bg-[var(--dt-muted)] px-3 py-1 text-xs font-medium text-[var(--dt-fg-muted)]">
+              {user.role}
+            </span>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
             {(user.role === 'DOCTOR' || user.role === 'ASSISTANT') && (
               <Link
                 href="/dashboard"
-                className="rounded-lg border-2 border-indigo-200 bg-indigo-50 p-6 text-center transition-colors hover:border-indigo-400"
+                className="group dt-card p-6 text-left transition-all hover:border-[var(--dt-primary)]/40 hover:shadow-md hover:shadow-[var(--dt-primary)]/5"
               >
-                <h2 className="text-lg font-semibold text-indigo-900">Dashboard</h2>
-                <p className="mt-1 text-sm text-indigo-600">
-                  Manage sessions & queue
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--dt-accent-soft)] text-lg">
+                  ⚕
+                </span>
+                <h2 className="mt-4 text-lg font-semibold text-[var(--dt-fg)] group-hover:text-[var(--dt-primary)]">
+                  Dashboard
+                </h2>
+                <p className="mt-1 text-sm text-[var(--dt-fg-muted)]">
+                  Sessions, check-in, and queue control
                 </p>
               </Link>
             )}
             <Link
               href="/queue"
-              className="rounded-lg border-2 border-green-200 bg-green-50 p-6 text-center transition-colors hover:border-green-400"
+              className="group dt-card p-6 text-left transition-all hover:border-[var(--dt-primary)]/40 hover:shadow-md hover:shadow-[var(--dt-primary)]/5"
             >
-              <h2 className="text-lg font-semibold text-green-900">Queue View</h2>
-              <p className="mt-1 text-sm text-green-600">
-                Check your position & ETA
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--dt-success-soft)] text-lg">
+                ◷
+              </span>
+              <h2 className="mt-4 text-lg font-semibold text-[var(--dt-fg)] group-hover:text-[var(--dt-primary)]">
+                Live queue
+              </h2>
+              <p className="mt-1 text-sm text-[var(--dt-fg-muted)]">
+                Your position and estimated wait time
               </p>
             </Link>
           </div>
 
-          <button
-            onClick={logout}
-            className="mx-auto block text-sm text-gray-500 hover:text-gray-700"
-          >
-            Sign out
-          </button>
+          <div className="text-center">
+            <button
+              type="button"
+              onClick={logout}
+              className="text-sm font-medium text-[var(--dt-fg-muted)] underline-offset-4 transition-colors hover:text-[var(--dt-fg)] hover:underline"
+            >
+              Sign out
+            </button>
+          </div>
         </div>
       ) : (
-        <div className="mt-10 flex justify-center gap-4">
-          <Link
-            href="/login"
-            className="rounded-lg bg-indigo-600 px-8 py-3 font-semibold text-white transition-colors hover:bg-indigo-700"
-          >
-            Sign In
+        <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <Link href="/login" className="dt-btn-primary min-w-[10rem] px-8 py-3 text-base">
+            Sign in
           </Link>
-          <Link
-            href="/register"
-            className="rounded-lg border-2 border-indigo-600 px-8 py-3 font-semibold text-indigo-600 transition-colors hover:bg-indigo-50"
-          >
-            Register
+          <Link href="/register" className="dt-btn-secondary min-w-[10rem] px-8 py-3 text-base">
+            Create account
           </Link>
         </div>
       )}

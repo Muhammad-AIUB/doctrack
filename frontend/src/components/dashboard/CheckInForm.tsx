@@ -40,46 +40,69 @@ export function CheckInForm({ sessionId, onSuccess }: CheckInFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-3 rounded-lg border bg-white p-4">
-      <h3 className="font-semibold text-gray-900">Check In Patient</h3>
+    <form onSubmit={handleSubmit} className="dt-card space-y-4 p-5">
+      <div>
+        <h3 className="text-sm font-semibold text-[var(--dt-fg)]">Check in patient</h3>
+        <p className="mt-0.5 text-xs text-[var(--dt-fg-muted)]">Add them to the waiting list for this session.</p>
+      </div>
 
-      <input
-        type="text"
-        placeholder="Patient ID (UUID)"
-        value={patientId}
-        onChange={(e) => setPatientId(e.target.value)}
-        className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-        required
-      />
+      <div>
+        <label htmlFor="checkin-patient" className="dt-label">
+          Patient ID (UUID)
+        </label>
+        <input
+          id="checkin-patient"
+          type="text"
+          placeholder="Patient account UUID"
+          value={patientId}
+          onChange={(e) => setPatientId(e.target.value)}
+          className="dt-input font-mono text-xs sm:text-sm"
+          required
+        />
+      </div>
 
-      <select
-        value={priority}
-        onChange={(e) => setPriority(Number(e.target.value) as QueuePriority)}
-        className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-      >
-        <option value={QueuePriority.REGULAR}>Regular</option>
-        <option value={QueuePriority.VIP}>VIP</option>
-        <option value={QueuePriority.EMERGENCY}>Emergency</option>
-      </select>
+      <div>
+        <label htmlFor="checkin-priority" className="dt-label">
+          Priority
+        </label>
+        <select
+          id="checkin-priority"
+          value={priority}
+          onChange={(e) => setPriority(Number(e.target.value) as QueuePriority)}
+          className="dt-input cursor-pointer"
+        >
+          <option value={QueuePriority.REGULAR}>Regular</option>
+          <option value={QueuePriority.VIP}>VIP</option>
+          <option value={QueuePriority.EMERGENCY}>Emergency</option>
+        </select>
+      </div>
 
-      <input
-        type="text"
-        placeholder="Notes (optional)"
-        value={notes}
-        onChange={(e) => setNotes(e.target.value)}
-        className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-      />
+      <div>
+        <label htmlFor="checkin-notes" className="dt-label">
+          Notes <span className="font-normal opacity-70">(optional)</span>
+        </label>
+        <input
+          id="checkin-notes"
+          type="text"
+          placeholder="e.g. Follow-up, referral"
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+          className="dt-input"
+        />
+      </div>
 
       <button
         type="submit"
         disabled={loading || !patientId.trim()}
-        className="w-full rounded-md bg-indigo-600 py-2 text-sm font-semibold text-white transition-colors hover:bg-indigo-700 disabled:opacity-50"
+        className="dt-btn-primary w-full py-2.5"
       >
-        {loading ? 'Checking in...' : 'Check In'}
+        {loading ? 'Checking in…' : 'Check in'}
       </button>
 
       {error && (
-        <p className="text-sm text-red-600">{error}</p>
+        <p className="text-sm text-[var(--dt-danger)]" role="alert">
+          {error}
+        </p>
       )}
     </form>
   );

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/lib/auth-context";
+import { AppHeader } from "@/components/layout/AppHeader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,8 +15,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "doctrack - Smart Medical Queue & ETA",
-  description: "doctrack real-time queue tracking and dynamic ETA for doctor chambers",
+  title: "DocTrack — Medical queue & ETA",
+  description:
+    "Real-time queue tracking and dynamic ETA for doctor chambers. Patients see their place; staff run sessions from one dashboard.",
 };
 
 export default function RootLayout({
@@ -26,9 +28,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 min-h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} min-h-dvh antialiased`}
       >
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <AppHeader />
+          <main className="min-h-[calc(100dvh-3.5rem)]">{children}</main>
+        </AuthProvider>
       </body>
     </html>
   );
